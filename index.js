@@ -16,3 +16,6 @@ app.use("/", require("./routes"));
 app.listen(port, function () {
     console.log(`Server listening on port ${8000}`);
 });
+
+
+module.exports =app;
