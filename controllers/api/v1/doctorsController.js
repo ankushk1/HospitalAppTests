@@ -33,29 +33,24 @@ module.exports = {
     login: async function (req, res) {
         try {
             let doctor = await Doctor.findOne({
-                email: req.body.email
-            });
-            if (bcrypt.compareSync(req.body.password, doctor.password)) {
-                const token = jwt.sign({
-                    id: doctor._id
-                }, req.app.get('secretKey'), {
-                    expiresIn: '2h'
+                username: request.body.username
+              });
+              if (!doctor || doctor.password != request.body.password) {
+                return response.json(422, {
+                  message: "Invalid username or password"
                 });
-
-                res.json({
-                    status: "Success",
-                    message: "Logged in",
-                    data: {
-                        doctor: doctor,
-                        token: token
-                    }
-                });
-            } else {
-                return res.json(422, {
-                    message: "Invalid username or password"
-                });
-            }
-        } catch (error) {
+              }
+              return response.json(200, {
+                data: {
+                  doctor: doctor,
+                  token: jwt.sign(doctor.toJSON(), "covid", {
+                    expiresIn: "10000000"
+                  })
+                },
+                message: "Success!"
+              });
+            } 
+         catch (error) {
             return response.json(500, {
                 message: "Internal Server Error " + error
             });
