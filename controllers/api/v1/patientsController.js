@@ -8,6 +8,8 @@ module.exports = {
             let patient = await Patient.findOne({
                 number: req.body.number
             });
+
+            //if already registered
             if (patient) {
                 return res.json(200, {
                     data: {
@@ -19,6 +21,8 @@ module.exports = {
             patient = await Patient.create({
                 number: req.body.number
             });
+
+            //return patient
             return res.json(200, {
                 data: {
                     patient: patient
