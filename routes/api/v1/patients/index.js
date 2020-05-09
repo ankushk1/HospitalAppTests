@@ -11,8 +11,8 @@ const reportsController = require('../../../../controllers/api/v1/reportsControl
 //patient and report routes
 router.post('/register_patient',passport.authenticate("jwt", { session: false }), patientController.registerPatient);
 router.post('/:id/create_report',passport.authenticate("jwt", { session: false }), reportsController.createReport);
-router.get('/:id/all_reports', reportsController.getAll);
-//router.get('/by_status', reportsController.allReportsWithStatus);
+router.get('/:id/all_reports',passport.authenticate("jwt", { session: false }), reportsController.getAll);
+
 
 
 //export router
