@@ -23,7 +23,7 @@ describe('Patient routes', () => {
 
             chai.request(server)
                 .post("api/v1/patients/register_patient")//request
-                .set('content-type', 'application.json')
+                .set('Content-type', 'Application.json')
                 .set({'Authorization':  'bearer ' + token})//token for authourization
                 .send(patient)
                 .end((err, res) => {
@@ -37,14 +37,12 @@ describe('Patient routes', () => {
     //create report test
     describe("POST api/v1/patients/:id/create_report", () => {
         it("Create new report", done => {
-            const reportBody = {
-                doctor: 'name   '
-            }
-            const reportQuery = {
+           
+            const reportId = {
                 id: "5eb69adb8466544604d8282b" //patient id
             }
             chai.request(server)
-                .post(`api/v1//patients/${reportQuery.id}/create_report`) //request
+                .post(`api/v1//patients/${reportId.id}/create_report`) //request
                 .set('content-type', 'application.json')
                 .set({'Authorization':  'bearer ' + token})//token for authourization
                 .send(reportBody)
@@ -61,12 +59,12 @@ describe('Patient routes', () => {
     //test for getting all reports
     describe("POST api/v1//patients/:id/all_reports", () => {
         it("Returns all the Reports", done => {
-            const reportQuery = {
+            const reportId = {
                 id: "5eb69adb8466544604d8282b" //patient id
             }
             chai.request(server)
-                .get(`api/v1//patients/${reportQuery.id}/all_reports`) //request
-                .set({'Authorization':  'bearer' + token})//add token for authourization
+                .get(`api/v1//patients/${reportId.id}/all_reports`) //request
+                .set({'Authorization':  'bearer ' + token})//add token for authourization
                 .end((err, res) => {
                     res.should.have.status(200);//checks
                     res.body.reports.should.be.a('array');
